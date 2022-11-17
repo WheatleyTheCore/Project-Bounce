@@ -1,22 +1,31 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public Projectile laserPrefab;
-
     public float speed = 5f;
-
-    private bool _laserActive;
+    public Projectile laserPrefab;
+    public System.Action killed;
+    public bool laserActive { get; private set; }
 
     private void Update()
     {
-        float horizontalInput = Input.GetAxisRaw("Horizontal");     // using this instead of hardcoding input values because then it's easier to reassign to other inputs later
+        Vector3 position = transform.position;
 
-        if (horizontalInput != 0)
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
-            this.transform.position += Vector3.right * horizontalInput * speed * Time.deltaTime;
+            position.x -= speed * Time.deltaTime;
         }
+        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        {
+            position.x += speed * Time.deltaTime;
+        }
+
+        Vector3 leftEdge = Camera.main.ViewportToWorldPoint(Vector3.zero);
+        Vector3 rightEdge = Camera.main.ViewportToWorldPoint(Vector3.right);
+
+        // Clamp the position of the character so they do not go out of bounds
+        position.x = Mathf.Clamp(position.x, leftEdge.x, rightEdge.x);
+        transform.position = position;
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
@@ -26,24 +35,32 @@ public class Player : MonoBehaviour
 
     private void Shoot()
     {
-        if (!_laserActive)
+        // Only one laser can be active at a given time so first check that
+        // there is not already an active laser
+        if (!laserActive)
         {
-            Projectile projectile = Instantiate(this.laserPrefab, this.transform.position, Quaternion.identity);
-            projectile.destoryed += LaserDestroyed;
-            _laserActive = true;
+            laserActive = true;
+
+            Projectile laser = Instantiate(laserPrefab, transform.position, Quaternion.identity);
+            laser.destroyed += OnLaserDestroyed;
         }
     }
 
-    private void LaserDestroyed()
+    private void OnLaserDestroyed(Projectile laser)
     {
-        _laserActive = false;
+        laserActive = false;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Invader") || other.gameObject.layer == LayerMask.NameToLayer("Missile"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Missile") ||
+            other.gameObject.layer == LayerMask.NameToLayer("Invader"))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            if (killed != null)
+            {
+                killed.Invoke();
+            }
         }
     }
+
 }

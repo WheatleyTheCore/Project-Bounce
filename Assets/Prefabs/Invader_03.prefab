@@ -62,11 +62,11 @@ PrefabInstance:
     - target: {fileID: 5857469073091638262, guid: 37b625b0873c8a04a9be5ff5bb07c841, type: 3}
       propertyPath: animationSprites.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: c8e61345d3987184b973a87b6d24e87a, type: 3}
+      objectReference: {fileID: -71795503, guid: e597df27dc9f5594e92ae74d1b5903f3, type: 3}
     - target: {fileID: 5857469073091638262, guid: 37b625b0873c8a04a9be5ff5bb07c841, type: 3}
       propertyPath: animationSprites.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: 62bd310435a5d0c468ae8052f0a3e83c, type: 3}
+      objectReference: {fileID: -1545963732, guid: e597df27dc9f5594e92ae74d1b5903f3, type: 3}
     - target: {fileID: 6286071393084994591, guid: 37b625b0873c8a04a9be5ff5bb07c841, type: 3}
       propertyPath: m_Sprite
       value: 

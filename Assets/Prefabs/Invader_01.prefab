@@ -66,11 +66,11 @@ PrefabInstance:
     - target: {fileID: 1609101782115936281, guid: bcbac6fc4d9252c4e8626d9b2202be12, type: 3}
       propertyPath: animationSprites.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: b5f20663b636d4b4eb010e7fb8012499, type: 3}
+      objectReference: {fileID: -71795503, guid: e597df27dc9f5594e92ae74d1b5903f3, type: 3}
     - target: {fileID: 1609101782115936281, guid: bcbac6fc4d9252c4e8626d9b2202be12, type: 3}
       propertyPath: animationSprites.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: 695deb1fbb284dd46be3ecd6ad6b2c49, type: 3}
+      objectReference: {fileID: -1545963732, guid: e597df27dc9f5594e92ae74d1b5903f3, type: 3}
     - target: {fileID: 8188189976101174105, guid: bcbac6fc4d9252c4e8626d9b2202be12, type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.x
       value: 0.5
