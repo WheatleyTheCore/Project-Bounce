@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -7,8 +8,36 @@ public class Player : MonoBehaviour
     public System.Action killed;
     public bool laserActive { get; private set; }
 
+    private Camera cam;
+    private float angle;
+
+    private void Start()
+    {
+        cam = Camera.main;
+    }
+
     private void Update()
     {
+
+        /*
+         1. get the mouse position x and y in either pixels or world units or whatever, with the player object being (0, 0)
+         2. Make those values into a vector and normalize it to get direction vector for projectile, and use arctan to get angle to rotate (actually double check how you do rotations)
+         3. Apply rotation to player object so it turns to point towards mouse
+         4. When player clicks, create projectile with current rotation and pass it the direction unit vector that it will use to move
+         */
+
+        Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+
+        Vector3 processedMousePos = mousePos - transform.position;
+
+        int sign = (processedMousePos.x < 0) ? 1 : -1;
+
+        angle = Vector2.Angle(new Vector2(processedMousePos.x, processedMousePos.y), Vector2.up) * sign;
+        
+        Debug.Log(angle);
+
+        transform.eulerAngles = new Vector3(0, 0, angle);
+
         Vector3 position = transform.position;
 
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
@@ -42,6 +71,8 @@ public class Player : MonoBehaviour
             laserActive = true;
 
             Projectile laser = Instantiate(laserPrefab, transform.position, Quaternion.identity);
+            laser.direction = Quaternion.Euler(0, 0, angle) * Vector3.up;
+            laser.angle = angle;
             laser.destroyed += OnLaserDestroyed;
         }
     }
