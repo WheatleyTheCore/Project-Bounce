@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
 
         angle = Vector2.Angle(new Vector2(processedMousePos.x, processedMousePos.y), Vector2.up) * sign;
         
-        Debug.Log(angle);
+        //Debug.Log(angle);
 
         transform.eulerAngles = new Vector3(0, 0, angle);
 
