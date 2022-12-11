@@ -34,9 +34,15 @@ public class Projectile : MonoBehaviour
 
     private void CheckCollision(Collider2D other)
     {
-        Bunker bunker = other.gameObject.GetComponent<Bunker>();
-
-        if (bunker == null || bunker.CheckCollision(collider, transform.position))
+        if (other.gameObject.CompareTag("Horizontal"))
+        {
+            direction.Set(direction[0], direction[1] * -1, direction[2]);
+        }
+        else if (other.gameObject.CompareTag("Vertical"))
+        {
+            direction.Set(direction[0] * -1, direction[1], direction[2]);
+        }
+        else if (other.gameObject.CompareTag("Death"))
         {
             Destroy(gameObject);
         }
