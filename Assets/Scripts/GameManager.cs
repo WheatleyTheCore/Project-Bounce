@@ -97,10 +97,10 @@ public sealed class GameManager : MonoBehaviour
     {
         gameOverUI.SetActive(true);
         //invaders.gameObject.SetActive(false);
-        for (int i = 0; i < bunkers.Length; i++)
-        {
+        //for (int i = 0; i < bunkers.Length; i++)
+        //{
             //bunkers[i].gameObject.SetActive(false);
-        }
+        //}
     }
 
     private void SetScore(int score)
@@ -117,13 +117,13 @@ public sealed class GameManager : MonoBehaviour
 
     private void OnLevelBeat()
     {
-        if (currentSceneIndex >= sceneCount)
+        if (SceneManager.GetActiveScene().buildIndex + 1 > sceneCount)
         {
             GameOver();
         } else
         {
             currentSceneIndex += 1;
-            SceneManager.LoadScene("Level" + (currentSceneIndex + 1));
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 
