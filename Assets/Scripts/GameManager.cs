@@ -1,8 +1,12 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public sealed class GameManager : MonoBehaviour
 {
+    private int sceneCount;
+    private int currentSceneIndex = 0;
+    
     private Player player;
     private Invaders invaders;
     private MysteryShip mysteryShip;
@@ -20,32 +24,34 @@ public sealed class GameManager : MonoBehaviour
     private void Awake()
     {
         player = FindObjectOfType<Player>();
-        invaders = FindObjectOfType<Invaders>();
-        mysteryShip = FindObjectOfType<MysteryShip>();
-        bunkers = FindObjectsOfType<Bunker>();
+        //invaders = FindObjectOfType<Invaders>();
+        //mysteryShip = FindObjectOfType<MysteryShip>();
+        //bunkers = FindObjectsOfType<Bunker>();
+        sceneCount = SceneManager.sceneCount;
 
-        
+
     }
 
     private void Start()
     {
         player.killed += OnPlayerKilled;
-        mysteryShip.killed += OnMysteryShipKilled;
-        invaders.killed += OnInvaderKilled;
+        player.levelBeat += OnLevelBeat;
+        //mysteryShip.killed += OnMysteryShipKilled;
+        //invaders.killed += OnInvaderKilled;
         gameOverUI.gameObject.SetActive(false);
         MainMenuUI.gameObject.SetActive(true);
         player.gameObject.SetActive(false);
-        invaders.gameObject.SetActive(false);
-        for (int i = 0; i < bunkers.Length; i++)
-        {
-            bunkers[i].gameObject.SetActive(false);
-        }
+        //invaders.gameObject.SetActive(false);
+        //for (int i = 0; i < bunkers.Length; i++)
+        //{
+        //    bunkers[i].gameObject.SetActive(false);
+        //}
 
     }
 
     private void Update()
     {
-        if (gameState == "start" && Input.GetKeyDown(KeyCode.Return))
+        if (gameState == "start" && Input.GetKeyDown(KeyCode.Return) || SceneManager.GetActiveScene().buildIndex > 0)
         {
             gameState = "playing";
             MainMenuUI.gameObject.SetActive(false);
@@ -68,13 +74,13 @@ public sealed class GameManager : MonoBehaviour
 
     private void NewRound()
     {
-        invaders.ResetInvaders();
-        invaders.gameObject.SetActive(true);
+        //invaders.ResetInvaders();
+        //invaders.gameObject.SetActive(true);
 
-        for (int i = 0; i < bunkers.Length; i++)
-        {
-            bunkers[i].ResetBunker();
-        }
+        //for (int i = 0; i < bunkers.Length; i++)
+        //{
+            //bunkers[i].ResetBunker();
+        //}
 
         Respawn();
     }
@@ -90,10 +96,10 @@ public sealed class GameManager : MonoBehaviour
     private void GameOver()
     {
         gameOverUI.SetActive(true);
-        invaders.gameObject.SetActive(false);
+        //invaders.gameObject.SetActive(false);
         for (int i = 0; i < bunkers.Length; i++)
         {
-            bunkers[i].gameObject.SetActive(false);
+            //bunkers[i].gameObject.SetActive(false);
         }
     }
 
@@ -107,6 +113,18 @@ public sealed class GameManager : MonoBehaviour
     {
         this.lives = Mathf.Max(lives, 0);
         livesText.text = "Lives: " + lives.ToString();
+    }
+
+    private void OnLevelBeat()
+    {
+        if (currentSceneIndex >= sceneCount)
+        {
+            GameOver();
+        } else
+        {
+            currentSceneIndex += 1;
+            SceneManager.LoadScene("Level" + (currentSceneIndex + 1));
+        }
     }
 
     private void OnPlayerKilled()
@@ -129,10 +147,10 @@ public sealed class GameManager : MonoBehaviour
     {
         SetScore(score + invader.score);
 
-        if (invaders.AmountKilled == invaders.TotalAmount)
-        {
-            NewRound();
-        }
+        //if (invaders.AmountKilled == invaders.TotalAmount)
+        //{
+        //    NewRound();
+       // }
     }
 
     private void OnMysteryShipKilled(MysteryShip mysteryShip)

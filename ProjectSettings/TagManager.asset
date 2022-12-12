@@ -7,11 +7,12 @@ TagManager:
   - Horizontal
   - Vertical
   - Death
+  - Goal
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Goal
   - Water
   - UI
   - Player

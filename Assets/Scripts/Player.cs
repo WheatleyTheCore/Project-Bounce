@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
     public float speed = 5f;
     public Projectile laserPrefab;
     public System.Action killed;
+    public System.Action levelBeat;
     public bool laserActive { get; private set; }
 
     private Camera cam;
@@ -74,9 +75,16 @@ public class Player : MonoBehaviour
             laser.direction = Quaternion.Euler(0, 0, angle) * Vector3.up;
             laser.angle = angle;
             laser.destroyed += OnLaserDestroyed;
+            laser.hitGoal += OnHitGoal;
         }
     }
 
+    private void OnHitGoal(Projectile laser)
+    {
+        laserActive = false;
+        levelBeat.Invoke();
+
+    }
     private void OnLaserDestroyed(Projectile laser)
     {
         laserActive = false;

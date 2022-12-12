@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour
     public Vector3 direction = Vector3.up;
     public float angle = 0;
     public System.Action<Projectile> destroyed;
+    public System.Action<Projectile> hitGoal;
     public new BoxCollider2D collider { get; private set; }
 
     private void Awake()
@@ -45,6 +46,11 @@ public class Projectile : MonoBehaviour
         else if (other.gameObject.CompareTag("Death"))
         {
             Destroy(gameObject);
+        } else if (other.gameObject.CompareTag("Goal"))
+        {
+            Debug.Log("Hit Goal");
+            Destroy(gameObject);
+            hitGoal.Invoke(this);
         }
     }
 
