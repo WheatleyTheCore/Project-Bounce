@@ -27,7 +27,7 @@ public sealed class GameManager : MonoBehaviour
         //invaders = FindObjectOfType<Invaders>();
         //mysteryShip = FindObjectOfType<MysteryShip>();
         //bunkers = FindObjectsOfType<Bunker>();
-        sceneCount = SceneManager.sceneCount;
+        sceneCount = SceneManager.sceneCountInBuildSettings;
 
 
     }
@@ -117,7 +117,7 @@ public sealed class GameManager : MonoBehaviour
 
     private void OnLevelBeat()
     {
-        if (SceneManager.GetActiveScene().buildIndex + 1 > sceneCount)
+        if (SceneManager.GetActiveScene().buildIndex + 1 >= sceneCount)
         {
             GameOver();
         } else
