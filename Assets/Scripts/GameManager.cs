@@ -15,6 +15,7 @@ public sealed class GameManager : MonoBehaviour
 
     public GameObject MainMenuUI;
     public GameObject gameOverUI;
+    public GameObject gameCompletedUI;
     public Text scoreText;
     public Text livesText;
 
@@ -36,11 +37,15 @@ public sealed class GameManager : MonoBehaviour
     {
         player.killed += OnPlayerKilled;
         player.levelBeat += OnLevelBeat;
+
+        gameCompletedUI = GameObject.FindGameObjectsWithTag("GameCompleted")[0];
+        MainMenuUI = GameObject.FindGameObjectsWithTag("MainMenu")[0];
         //mysteryShip.killed += OnMysteryShipKilled;
         //invaders.killed += OnInvaderKilled;
         gameOverUI.gameObject.SetActive(false);
         MainMenuUI.gameObject.SetActive(true);
         player.gameObject.SetActive(false);
+        gameCompletedUI.SetActive(false);
         //invaders.gameObject.SetActive(false);
         //for (int i = 0; i < bunkers.Length; i++)
         //{
@@ -119,11 +124,16 @@ public sealed class GameManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex + 1 >= sceneCount)
         {
-            GameOver();
+            //GameOver();
+            gameCompletedUI.SetActive(true);
+            GameObject.FindGameObjectsWithTag("Goal")[0].SetActive(false);
         } else
         {
             currentSceneIndex += 1;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            gameCompletedUI = GameObject.FindGameObjectsWithTag("GameCompleted")[0];
+            MainMenuUI = GameObject.FindGameObjectsWithTag("MainMenu")[0];
+            gameCompletedUI.SetActive(false);
         }
     }
 

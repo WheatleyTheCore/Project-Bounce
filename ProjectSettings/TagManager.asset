@@ -8,6 +8,8 @@ TagManager:
   - Vertical
   - Death
   - Goal
+  - GameCompleted
+  - MainMenu
   layers:
   - Default
   - TransparentFX
