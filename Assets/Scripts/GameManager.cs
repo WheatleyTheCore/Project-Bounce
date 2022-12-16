@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
 public sealed class GameManager : MonoBehaviour
 {
     private int sceneCount;
@@ -69,6 +70,11 @@ public sealed class GameManager : MonoBehaviour
         {
             NewGame();
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+            Debug.Log("ABORT");
+        }
     }
 
     private void NewGame()
@@ -132,6 +138,10 @@ public sealed class GameManager : MonoBehaviour
             //GameOver();
             gameCompletedUI.SetActive(true);
             GameObject.FindGameObjectsWithTag("Goal")[0].SetActive(false);
+            GameObject.FindGameObjectsWithTag("Vertical")[1].SetActive(false);
+            GameObject.FindGameObjectsWithTag("Vertical")[1].SetActive(false);
+            GameObject.FindGameObjectsWithTag("Horizontal")[1].SetActive(false);
+            GameObject.FindGameObjectsWithTag("Horizontal")[0].SetActive(false);
         } else
         {
             currentSceneIndex += 1;
