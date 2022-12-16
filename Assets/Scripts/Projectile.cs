@@ -38,19 +38,24 @@ public class Projectile : MonoBehaviour
         if (other.gameObject.CompareTag("Horizontal"))
         {
             direction.Set(direction[0], direction[1] * -1, direction[2]);
+            SFXManager.instance.Audio.PlayOneShot(SFXManager.instance.pong);
         }
         else if (other.gameObject.CompareTag("Vertical"))
         {
             direction.Set(direction[0] * -1, direction[1], direction[2]);
+            SFXManager.instance.Audio.PlayOneShot(SFXManager.instance.pong);
         }
         else if (other.gameObject.CompareTag("Death"))
         {
             Destroy(gameObject);
-        } else if (other.gameObject.CompareTag("Goal"))
+            SFXManager.instance.Audio.PlayOneShot(SFXManager.instance.death);
+        }
+        else if (other.gameObject.CompareTag("Goal"))
         {
             Debug.Log("Hit Goal");
             Destroy(gameObject);
             hitGoal.Invoke(this);
+            SFXManager.instance.Audio.PlayOneShot(SFXManager.instance.win);
         }
     }
 

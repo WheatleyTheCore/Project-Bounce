@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: acc8661e34156f9418d959f4d335b0e2
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Audio: {instanceID: 0}
+  - pong: {fileID: 8300000, guid: 564c1422727b6d744ad1498319e14375, type: 3}
+  - death: {fileID: 8300000, guid: fd9527cdbc7710f4ba3a8e8d39e15157, type: 3}
+  - win: {fileID: 8300000, guid: 7969af91de6d4e74db4800030b6a1414, type: 3}
+  - victory: {fileID: 8300000, guid: b98171f090fa4ec418fc40ca9aa89e4a, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
