@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class Projectile : MonoBehaviour
@@ -52,10 +53,18 @@ public class Projectile : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Goal"))
         {
+            Scene scene = SceneManager.GetActiveScene();
+            if (scene.buildIndex == 4)
+            {
+                SFXManager.instance.Audio.PlayOneShot(SFXManager.instance.victory);
+            }
+            else
+            {
+                SFXManager.instance.Audio.PlayOneShot(SFXManager.instance.win);
+            }
             Debug.Log("Hit Goal");
             Destroy(gameObject);
             hitGoal.Invoke(this);
-            SFXManager.instance.Audio.PlayOneShot(SFXManager.instance.win);
         }
     }
 
