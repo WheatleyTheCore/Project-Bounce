@@ -1,7 +1,5 @@
-# A Clone of Space Invaders
+# Project Bounce
 
-Made for my IMGD 1001 course at WPI.
-
-Made following this tutorial: https://github.com/WheatleyTheCore/Space-Invaders-Clone.
+Made for our IMGD 1001 course final at WPI.
 
 
